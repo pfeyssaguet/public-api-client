@@ -89,7 +89,7 @@ foreach ($customers as $customer) {
 ### Create a customer
 You can create a customer by calling the ```createCustomer()``` method.
 
-This method returns the reference of the newly created custoemr.
+This method returns the reference of the newly created customer.
 
 Example:
 
