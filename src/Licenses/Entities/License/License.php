@@ -1,6 +1,6 @@
 <?php
 
-namespace ArrowSphere\PublicApiClient\Licenses\Entities;
+namespace ArrowSphere\PublicApiClient\Licenses\Entities\License;
 
 use ArrowSphere\PublicApiClient\AbstractEntity;
 use ArrowSphere\PublicApiClient\Exception\EntityValidationException;
@@ -8,9 +8,11 @@ use ArrowSphere\PublicApiClient\Exception\EntityValidationException;
 /**
  * Class AbstractLicense
  */
-abstract class AbstractLicense extends AbstractEntity
+class License extends AbstractEntity
 {
     public const COLUMN_ACCEPT_EULA = 'accept_eula';
+
+    public const COLUMN_ACTIVE_SEATS = 'active_seats';
 
     public const COLUMN_AUTO_RENEW = 'auto_renew';
 
@@ -19,6 +21,8 @@ abstract class AbstractLicense extends AbstractEntity
     public const COLUMN_CATEGORY = 'category';
 
     public const COLUMN_CLOUD_TYPE = 'cloud_type';
+
+    public const COLUMN_CONFIGS = 'configs';
 
     public const COLUMN_CUSTOMER_NAME = 'customer_name';
 
@@ -47,6 +51,8 @@ abstract class AbstractLicense extends AbstractEntity
     public const COLUMN_PARTNER_REF = 'partner_ref';
 
     public const COLUMN_PERIODICITY = 'periodicity';
+
+    public const COLUMN_PRICE = 'price';
 
     public const COLUMN_RESELLER_NAME = 'reseller_name';
 
@@ -83,27 +89,23 @@ abstract class AbstractLicense extends AbstractEntity
     public const COLUMN_VENDOR_SUBSCRIPTION_ID = 'vendor_subscription_id';
 
     protected const VALIDATION_RULES = [
+        self::COLUMN_ACCEPT_EULA     => 'present|boolean',
+        self::COLUMN_AUTO_RENEW      => 'present|boolean',
+        self::COLUMN_BASE_SEAT       => 'present|numeric',
+        self::COLUMN_CLOUD_TYPE      => 'required',
         self::COLUMN_ID              => 'required|numeric',
-        self::COLUMN_SUBSCRIPTION_ID => 'required',
-        self::COLUMN_VENDOR_NAME     => 'required',
-        self::COLUMN_VENDOR_CODE     => 'required',
-        self::COLUMN_SUBSIDIARY_NAME => 'required',
+        self::COLUMN_OFFER           => 'required',
         self::COLUMN_PARTNER_REF     => 'required',
+        self::COLUMN_PRICE           => 'required|array',
+        self::COLUMN_SEAT            => 'present|numeric',
+        self::COLUMN_SKU             => 'required',
         self::COLUMN_STATUS_CODE     => 'required|numeric',
         self::COLUMN_STATUS_LABEL    => 'required',
-        self::COLUMN_SKU             => 'required',
-        'price'                      => 'required|array',
-        'price.buy_price'            => 'present|numeric',
-        'price.list_price'           => 'present|numeric',
-        'price.currency'             => 'present',
-        self::COLUMN_CLOUD_TYPE      => 'required',
-        self::COLUMN_BASE_SEAT       => 'present|numeric',
-        self::COLUMN_SEAT            => 'present|numeric',
+        self::COLUMN_SUBSCRIPTION_ID => 'required',
+        self::COLUMN_SUBSIDIARY_NAME => 'required',
         self::COLUMN_TRIAL           => 'present|boolean',
-        self::COLUMN_AUTO_RENEW      => 'present|boolean',
-        self::COLUMN_OFFER           => 'required',
-        self::COLUMN_ACCEPT_EULA     => 'present|boolean',
-
+        self::COLUMN_VENDOR_NAME     => 'required',
+        self::COLUMN_VENDOR_CODE     => 'required',
     ];
 
     /**
@@ -112,14 +114,9 @@ abstract class AbstractLicense extends AbstractEntity
     private $acceptEula;
 
     /**
-     * @var string|null
+     * @var ActiveSeats
      */
-    private $activeSeatsLastUpdate;
-
-    /**
-     * @var float|null
-     */
-    private $activeSeatsNumber;
+    private $activeSeats;
 
     /**
      * @var bool
@@ -132,11 +129,6 @@ abstract class AbstractLicense extends AbstractEntity
     private $baseSeat;
 
     /**
-     * @var float
-     */
-    private $buyPrice;
-
-    /**
      * @var string
      */
     private $category;
@@ -147,9 +139,9 @@ abstract class AbstractLicense extends AbstractEntity
     private $classification;
 
     /**
-     * @var string|null
+     * @var Config[]|null
      */
-    private $currency;
+    private $configs;
 
     /**
      * @var string
@@ -187,11 +179,6 @@ abstract class AbstractLicense extends AbstractEntity
     private $lastUpdate;
 
     /**
-     * @var float
-     */
-    private $listPrice;
-
-    /**
      * @var string
      */
     private $marketplace;
@@ -225,6 +212,11 @@ abstract class AbstractLicense extends AbstractEntity
      * @var int
      */
     private $periodicity;
+
+    /**
+     * @var Price
+     */
+    private $price;
 
     /**
      * @var string
@@ -323,14 +315,18 @@ abstract class AbstractLicense extends AbstractEntity
         parent::__construct($data);
 
         $this->acceptEula = $data[self::COLUMN_ACCEPT_EULA];
-        $this->activeSeatsLastUpdate = $data['active_seats']['lastUpdate'];
-        $this->activeSeatsNumber = $data['active_seats']['number'];
+        $this->activeSeats = new ActiveSeats($data[self::COLUMN_ACTIVE_SEATS]);
         $this->autoRenew = $data[self::COLUMN_AUTO_RENEW];
         $this->baseSeat = $data[self::COLUMN_BASE_SEAT];
-        $this->buyPrice = $data['price']['buy_price'];
         $this->category = $data[self::COLUMN_CATEGORY];
         $this->classification = $data[self::COLUMN_CLOUD_TYPE];
-        $this->currency = $data['price']['currency'];
+
+        if (isset($data[self::COLUMN_CONFIGS])) {
+            $this->configs = array_map(static function (array $config) {
+                return new Config($config);
+            }, $data[self::COLUMN_CONFIGS]);
+        }
+
         $this->customerName = $data[self::COLUMN_CUSTOMER_NAME];
         $this->customerRef = $data[self::COLUMN_CUSTOMER_REF];
         $this->endDate = $data[self::COLUMN_END_DATE];
@@ -338,7 +334,6 @@ abstract class AbstractLicense extends AbstractEntity
         $this->id = $data[self::COLUMN_ID];
         $this->isEnabled = $data[self::COLUMN_IS_ENABLED];
         $this->lastUpdate = $data[self::COLUMN_LAST_UPDATE];
-        $this->listPrice = $data['price']['list_price'];
         $this->marketplace = $data[self::COLUMN_MARKETPLACE];
         $this->message = $data[self::COLUMN_MESSAGE];
         $this->offer = $data[self::COLUMN_OFFER];
@@ -346,6 +341,7 @@ abstract class AbstractLicense extends AbstractEntity
         $this->parentOrderRef = $data[self::COLUMN_PARENT_ORDER_REF];
         $this->partnerRef = $data[self::COLUMN_PARTNER_REF];
         $this->periodicity = $data[self::COLUMN_PERIODICITY];
+        $this->price = new Price($data[self::COLUMN_PRICE]);
         $this->resellerName = $data[self::COLUMN_RESELLER_NAME];
         $this->resellerRef = $data[self::COLUMN_RESELLER_REF];
         $this->seat = $data[self::COLUMN_SEAT];
@@ -376,25 +372,17 @@ abstract class AbstractLicense extends AbstractEntity
     /**
      * @return bool
      */
-    public function isAcceptEula(): bool
+    public function getAcceptEula(): bool
     {
         return $this->acceptEula;
     }
 
     /**
-     * @return string|null
+     * @return ActiveSeats
      */
-    public function getActiveSeatsLastUpdate(): ?string
+    public function getActiveSeats(): ActiveSeats
     {
-        return $this->activeSeatsLastUpdate;
-    }
-
-    /**
-     * @return float|null
-     */
-    public function getActiveSeatsNumber(): ?float
-    {
-        return $this->activeSeatsNumber;
+        return $this->activeSeats;
     }
 
     /**
@@ -414,14 +402,6 @@ abstract class AbstractLicense extends AbstractEntity
     }
 
     /**
-     * @return float
-     */
-    public function getBuyPrice(): float
-    {
-        return $this->buyPrice;
-    }
-
-    /**
      * @return string
      */
     public function getCategory(): string
@@ -438,11 +418,11 @@ abstract class AbstractLicense extends AbstractEntity
     }
 
     /**
-     * @return string|null
+     * @return Config[]|null
      */
-    public function getCurrency(): ?string
+    public function getConfigs(): ?array
     {
-        return $this->currency;
+        return $this->configs;
     }
 
     /**
@@ -491,14 +471,6 @@ abstract class AbstractLicense extends AbstractEntity
     public function getLastUpdate(): string
     {
         return $this->lastUpdate;
-    }
-
-    /**
-     * @return float
-     */
-    public function getListPrice(): float
-    {
-        return $this->listPrice;
     }
 
     /**
@@ -555,6 +527,14 @@ abstract class AbstractLicense extends AbstractEntity
     public function getPeriodicity(): int
     {
         return $this->periodicity;
+    }
+
+    /**
+     * @return Price
+     */
+    public function getPrice(): Price
+    {
+        return $this->price;
     }
 
     /**
@@ -712,13 +692,10 @@ abstract class AbstractLicense extends AbstractEntity
             self::COLUMN_SERVICE_REF            => $this->serviceRef,
             self::COLUMN_SKU                    => $this->sku,
             self::COLUMN_UOM                    => $this->uom,
-            'price'                             => [
-                'buy_price'  => $this->buyPrice,
-                'list_price' => $this->listPrice,
-                'currency'   => $this->currency,
-            ],
+            self::COLUMN_PRICE                  => $this->price->jsonSerialize(),
             self::COLUMN_CLOUD_TYPE             => $this->classification,
             self::COLUMN_BASE_SEAT              => $this->baseSeat,
+            self::COLUMN_CONFIGS                => $this->configs,
             self::COLUMN_SEAT                   => $this->seat,
             self::COLUMN_TRIAL                  => $this->trial,
             self::COLUMN_AUTO_RENEW             => $this->autoRenew,
@@ -733,10 +710,7 @@ abstract class AbstractLicense extends AbstractEntity
             self::COLUMN_RESELLER_REF           => $this->resellerRef,
             self::COLUMN_RESELLER_NAME          => $this->resellerName,
             self::COLUMN_MARKETPLACE            => $this->marketplace,
-            'active_seats'                      => [
-                'number'     => $this->activeSeatsNumber,
-                'lastUpdate' => $this->activeSeatsLastUpdate,
-            ],
+            self::COLUMN_ACTIVE_SEATS           => $this->activeSeats->jsonSerialize(),
             self::COLUMN_FRIENDLY_NAME          => $this->friendlyName,
             self::COLUMN_VENDOR_SUBSCRIPTION_ID => $this->vendorSubscriptionId,
             self::COLUMN_MESSAGE                => $this->message,

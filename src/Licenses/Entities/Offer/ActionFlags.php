@@ -1,0 +1,83 @@
+<?php
+
+namespace ArrowSphere\PublicApiClient\Licenses\Entities\Offer;
+
+use ArrowSphere\PublicApiClient\AbstractEntity;
+
+/**
+ * Class Offer
+ */
+class ActionFlags extends AbstractEntity
+{
+    public const COLUMN_IS_AUTO_RENEW = 'isAutoRenew';
+
+    public const COLUMN_MANUAL_PROVISIONING = 'isManualProvisioning';
+
+    public const COLUMN_RENEWAL_SKU = 'renewalSku';
+
+    protected const VALIDATION_RULES = [
+        self::COLUMN_IS_AUTO_RENEW       => 'required|boolean',
+        self::COLUMN_MANUAL_PROVISIONING => 'required|boolean',
+        self::COLUMN_RENEWAL_SKU         => 'boolean',
+    ];
+
+    /**
+     * @var bool
+     */
+    private $isAutoRenew;
+
+    /**
+     * @var bool
+     */
+    private $isManualProvisioning;
+
+    /**
+     * @var bool
+     */
+    private $renewalSku;
+
+    /**
+     * @return bool
+     */
+    public function isAutoRenew(): bool
+    {
+        return $this->isAutoRenew;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isManualProvisioning(): bool
+    {
+        return $this->isManualProvisioning;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRenewalSku(): bool
+    {
+        return $this->renewalSku;
+    }
+
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+
+        $this->isAutoRenew = $data[self::COLUMN_IS_AUTO_RENEW];
+        $this->isManualProvisioning = $data[self::COLUMN_MANUAL_PROVISIONING];
+        $this->renewalSku = $data[self::COLUMN_RENEWAL_SKU] ?? false;
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            self::COLUMN_IS_AUTO_RENEW       => $this->isAutoRenew(),
+            self::COLUMN_MANUAL_PROVISIONING => $this->isManualProvisioning(),
+            self::COLUMN_RENEWAL_SKU         => $this->isRenewalSku(),
+        ];
+    }
+}

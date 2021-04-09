@@ -53,6 +53,13 @@ A license is managed by the ```License``` entity.
 | vendorName            | ```string``` | Microsoft                                            | The vendor of the offer                                                                               |
 | vendorSubscriptionId  | ```string``` | AABBCCDD-1111-2222-3333-ABCDEFABCDEF                 | An external identifier for the license                                                                |
 
+### Offer
+An offer is managed by the ```Offer``` entity.
+
+| Field | Type | Example | Description |
+|-------|------|---------|-------------|
+|  ||||
+
 ### FilterFindResult
 This entity represents a filter returned by the [Find endpoint](#find-endpoint).
 It shows a number of possible filters in the search results and the count for each of them.
@@ -72,16 +79,17 @@ Each entry in the ```values``` array looks like this:
 The focus of these filters is to allow to display them to the user as a list of checkboxes
 with how many results are available in each of them.
 
-### LicenseFindResult
+### LicenseOfferFindResult
 This entity represents a search result.
+A search result is a combination of the [License](#License) entity and the [Offer](#Offer) entity.
 All fields of the [License](#License) entity are available.
 This entity should be used to display search results or to make a listing of licenses.
 
-In addition to the fields of the license entity, these fields are available:
-
-| Field     | Type        | Example                           | Description                                                                                      |
-|-----------|-------------|-----------------------------------|--------------------------------------------------------------------------------------------------|
-| highlight | ```array``` | ['sku' => '<strong>ABC</strong>'] | An associative array which shows which values are to be highlighted based on the search keywords |
+| Field     | Type          | Example                           | Description                                                                                      |
+|-----------|---------------|-----------------------------------|--------------------------------------------------------------------------------------------------|
+| highlight | ```array```   | ['sku' => '<strong>ABC</strong>'] | An associative array which shows which values are to be highlighted based on the search keywords |
+| license   | ```License``` |                                   | All the fields contained in the [License](#License) entity                                       |
+| offer     | ```Offer```   |                                   | All the fields contained in the [Offer](#Offer) entity                                           |
 
 Please note that the ```highlight``` field is only available if the ```DATA_HIGHLIGHT``` option is set to ```true``` while searching.
 
@@ -126,7 +134,7 @@ Please note that the field names must be used with the ```License::COLUMN_*``` c
 <?php
 
 use ArrowSphere\PublicApiClient\Licenses\LicensesClient;
-use ArrowSphere\PublicApiClient\Licenses\Entities\License;
+use ArrowSphere\PublicApiClient\Licenses\Entities\Offer\License;
 
 const URL = 'https://your-url-to-arrowsphere.example.com';
 const API_KEY = 'your API key in ArrowSphere';

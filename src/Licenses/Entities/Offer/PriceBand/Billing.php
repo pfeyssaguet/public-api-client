@@ -1,0 +1,80 @@
+<?php
+
+namespace ArrowSphere\PublicApiClient\Licenses\Entities\Offer\PriceBand;
+
+use ArrowSphere\PublicApiClient\AbstractEntity;
+
+/**
+ * Class Billing
+ */
+class Billing extends AbstractEntity
+{
+    public const COLUMN_CYCLE = 'cycle';
+
+    public const COLUMN_TERM = 'term';
+
+    public const COLUMN_TYPE = 'type';
+
+    protected const VALIDATION_RULES = [
+    ];
+
+    /**
+     * @var int
+     */
+    private $cycle;
+
+    /**
+     * @var int
+     */
+    private $term;
+
+    /**
+     * @var string
+     */
+    private $type;
+
+    public function __construct(array $data)
+    {
+        parent::__construct($data);
+
+        $this->cycle = $data[self::COLUMN_CYCLE];
+        $this->term = $data[self::COLUMN_TERM];
+        $this->type = $data[self::COLUMN_TYPE];
+    }
+
+    /**
+     * @return int
+     */
+    public function getCycle(): int
+    {
+        return $this->cycle;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTerm(): int
+    {
+        return $this->term;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            self::COLUMN_CYCLE => $this->getCycle(),
+            self::COLUMN_TERM  => $this->getTerm(),
+            self::COLUMN_TYPE  => $this->getType(),
+        ];
+    }
+}

@@ -5,12 +5,6 @@
       <code>string</code>
     </ImplicitToStringCast>
   </file>
-  <file src="src/AbstractEntity.php">
-    <UndefinedClass occurrences="2">
-      <code>ArrayLoader</code>
-      <code>Translator</code>
-    </UndefinedClass>
-  </file>
   <file src="src/Catalog/AddonClient.php">
     <MismatchingDocblockReturnType occurrences="1">
       <code>Generator|Offer[]</code>
@@ -67,10 +61,7 @@
     </MismatchingDocblockReturnType>
   </file>
   <file src="src/Licenses/Entities/FindResult.php">
-    <MismatchingDocblockReturnType occurrences="2">
-      <code>Generator|LicenseFindResult[]</code>
-      <code>Generator|LicenseFindResult[]</code>
-    </MismatchingDocblockReturnType>
+    <MismatchingDocblockReturnType occurrences="2"/>
   </file>
   <file src="src/Licenses/LicensesClient.php">
     <ImplicitToStringCast occurrences="1">
