@@ -2,11 +2,10 @@
 
 namespace ArrowSphere\PublicApiClient\Tests;
 
-use ArrowSphere\PublicApiClient\Exception\EntityValidationException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class BillingTest
+ * Class AbstractEntityTest
  */
 abstract class AbstractEntityTest extends TestCase
 {
@@ -29,8 +28,6 @@ abstract class AbstractEntityTest extends TestCase
      *
      * @param array $fields
      * @param string $expected
-     *
-     * @throws EntityValidationException
      */
     public function testSerialization(array $fields, string $expected): void
     {

@@ -259,6 +259,8 @@ JSON;
      * @param array $pages
      *
      * @throws EntityValidationException
+     * @throws GuzzleException
+     * @throws NotFoundException
      * @throws PublicApiClientException
      */
     public function testFindWithPagination(int $totalPage, int $perPage, int $total, array $pages): void
@@ -268,7 +270,7 @@ JSON;
 
         for ($i = 1; $i <= $totalPage; $i++) {
             $responses[] = new Response(200, [], json_encode([
-                'results'   => $pages[$i - 1],
+                'results'    => $pages[$i - 1],
                 'filters'    => [],
                 'pagination' => [
                     'currentPage' => $i,
@@ -297,7 +299,7 @@ JSON;
 
         $test = $this->client->find([], $perPage);
 
-        /** @var AbstractLicense[] $results */
+        /** @var LicenseOfferFindResult[] $results */
         $results = iterator_to_array($test->getLicenses());
 
         $partnerRefs = array_map(static function (LicenseOfferFindResult $licenseOffer) {

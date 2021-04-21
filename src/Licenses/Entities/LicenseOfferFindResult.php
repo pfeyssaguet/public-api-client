@@ -7,6 +7,9 @@ use ArrowSphere\PublicApiClient\Exception\EntityValidationException;
 use ArrowSphere\PublicApiClient\Licenses\Entities\License\License;
 use ArrowSphere\PublicApiClient\Licenses\Entities\Offer\Offer;
 
+/**
+ * Class LicenseOfferFindResult
+ */
 class LicenseOfferFindResult extends AbstractEntity
 {
     public const COLUMN_HIGHLIGHT = 'highlight';
@@ -36,7 +39,7 @@ class LicenseOfferFindResult extends AbstractEntity
     private $offer;
 
     /**
-     * OfferFindResult constructor.
+     * LicenseOfferFindResult constructor.
      *
      * @param array $data
      *

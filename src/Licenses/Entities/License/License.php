@@ -6,7 +6,7 @@ use ArrowSphere\PublicApiClient\AbstractEntity;
 use ArrowSphere\PublicApiClient\Exception\EntityValidationException;
 
 /**
- * Class AbstractLicense
+ * Class License
  */
 class License extends AbstractEntity
 {
@@ -304,7 +304,7 @@ class License extends AbstractEntity
     private $vendorSubscriptionId;
 
     /**
-     * AbstractLicense constructor.
+     * License constructor.
      *
      * @param array $data
      *

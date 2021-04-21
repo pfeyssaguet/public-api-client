@@ -92,7 +92,7 @@ class PriceBand extends AbstractEntity
     /**
      * @return bool
      */
-    public function isEnabled(): bool
+    public function getIsEnabled(): bool
     {
         return $this->isEnabled;
     }
@@ -151,13 +151,13 @@ class PriceBand extends AbstractEntity
     public function jsonSerialize(): array
     {
         return [
-            self::COLUMN_ACTION_FLAGS     => $this->getActionFlags(),
-            self::COLUMN_BILLING          => $this->getBilling(),
-            self::COLUMN_CURRENCY         => $this->getCurrency(),
-            self::COLUMN_IS_ENABLED       => $this->IsEnabled(),
-            self::COLUMN_MARKETPLACE      => $this->getMarketplace(),
-            self::COLUMN_PRICES           => $this->getPrices(),
-            self::COLUMN_SALE_CONSTRAINTS => $this->getSaleConstraints(),
+            self::COLUMN_ACTION_FLAGS     => $this->actionFlags,
+            self::COLUMN_BILLING          => $this->billing,
+            self::COLUMN_CURRENCY         => $this->currency,
+            self::COLUMN_IS_ENABLED       => $this->isEnabled,
+            self::COLUMN_MARKETPLACE      => $this->marketplace,
+            self::COLUMN_PRICES           => $this->prices,
+            self::COLUMN_SALE_CONSTRAINTS => $this->saleConstraints,
         ];
     }
 }

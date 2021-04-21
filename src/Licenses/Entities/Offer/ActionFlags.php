@@ -3,9 +3,10 @@
 namespace ArrowSphere\PublicApiClient\Licenses\Entities\Offer;
 
 use ArrowSphere\PublicApiClient\AbstractEntity;
+use ArrowSphere\PublicApiClient\Exception\EntityValidationException;
 
 /**
- * Class Offer
+ * Class ActionFlags
  */
 class ActionFlags extends AbstractEntity
 {
@@ -39,7 +40,7 @@ class ActionFlags extends AbstractEntity
     /**
      * @return bool
      */
-    public function isAutoRenew(): bool
+    public function getIsAutoRenew(): bool
     {
         return $this->isAutoRenew;
     }
@@ -47,7 +48,7 @@ class ActionFlags extends AbstractEntity
     /**
      * @return bool
      */
-    public function isManualProvisioning(): bool
+    public function getIsManualProvisioning(): bool
     {
         return $this->isManualProvisioning;
     }
@@ -55,11 +56,18 @@ class ActionFlags extends AbstractEntity
     /**
      * @return bool
      */
-    public function isRenewalSku(): bool
+    public function getIsRenewalSku(): bool
     {
         return $this->renewalSku;
     }
 
+    /**
+     * ActionFlags constructor.
+     *
+     * @param array $data
+     *
+     * @throws EntityValidationException
+     */
     public function __construct(array $data)
     {
         parent::__construct($data);
@@ -75,9 +83,9 @@ class ActionFlags extends AbstractEntity
     public function jsonSerialize(): array
     {
         return [
-            self::COLUMN_IS_AUTO_RENEW       => $this->isAutoRenew(),
-            self::COLUMN_MANUAL_PROVISIONING => $this->isManualProvisioning(),
-            self::COLUMN_RENEWAL_SKU         => $this->isRenewalSku(),
+            self::COLUMN_IS_AUTO_RENEW       => $this->isAutoRenew,
+            self::COLUMN_MANUAL_PROVISIONING => $this->isManualProvisioning,
+            self::COLUMN_RENEWAL_SKU         => $this->renewalSku,
         ];
     }
 }

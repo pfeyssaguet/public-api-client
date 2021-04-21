@@ -3,6 +3,7 @@
 namespace ArrowSphere\PublicApiClient\Licenses\Entities\Offer\PriceBand;
 
 use ArrowSphere\PublicApiClient\AbstractEntity;
+use ArrowSphere\PublicApiClient\Exception\EntityValidationException;
 
 /**
  * Class Prices
@@ -36,6 +37,13 @@ class Prices extends AbstractEntity
      */
     private $public;
 
+    /**
+     * Prices constructor.
+     *
+     * @param array $data
+     *
+     * @throws EntityValidationException
+     */
     public function __construct(array $data)
     {
         parent::__construct($data);

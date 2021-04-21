@@ -3,6 +3,7 @@
 namespace ArrowSphere\PublicApiClient\Licenses\Entities\License;
 
 use ArrowSphere\PublicApiClient\AbstractEntity;
+use ArrowSphere\PublicApiClient\Exception\EntityValidationException;
 
 /**
  * Class Price
@@ -36,6 +37,13 @@ class Price extends AbstractEntity
         self::COLUMN_CURRENCY   => 'present',
     ];
 
+    /**
+     * Price constructor.
+     *
+     * @param array $data
+     *
+     * @throws EntityValidationException
+     */
     public function __construct(array $data)
     {
         parent::__construct($data);

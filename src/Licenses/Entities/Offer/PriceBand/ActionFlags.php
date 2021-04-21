@@ -3,6 +3,7 @@
 namespace ArrowSphere\PublicApiClient\Licenses\Entities\Offer\PriceBand;
 
 use ArrowSphere\PublicApiClient\AbstractEntity;
+use ArrowSphere\PublicApiClient\Exception\EntityValidationException;
 
 /**
  * Class ActionFlags
@@ -52,6 +53,13 @@ class ActionFlags extends AbstractEntity
      */
     private $canIncreaseSeats;
 
+    /**
+     * ActionFlags constructor.
+     *
+     * @param array $data
+     *
+     * @throws EntityValidationException
+     */
     public function __construct(array $data)
     {
         parent::__construct($data);
@@ -66,7 +74,7 @@ class ActionFlags extends AbstractEntity
     /**
      * @return bool
      */
-    public function isCanBeCancelled(): bool
+    public function getCanBeCancelled(): bool
     {
         return $this->canBeCancelled;
     }
@@ -74,7 +82,7 @@ class ActionFlags extends AbstractEntity
     /**
      * @return bool
      */
-    public function isCanBeReactivated(): bool
+    public function getCanBeReactivated(): bool
     {
         return $this->canBeReactivated;
     }
@@ -82,7 +90,7 @@ class ActionFlags extends AbstractEntity
     /**
      * @return bool
      */
-    public function isCanBeSuspended(): bool
+    public function getCanBeSuspended(): bool
     {
         return $this->canBeSuspended;
     }
@@ -90,7 +98,7 @@ class ActionFlags extends AbstractEntity
     /**
      * @return bool
      */
-    public function isCanDecreaseSeats(): bool
+    public function getCanDecreaseSeats(): bool
     {
         return $this->canDecreaseSeats;
     }
@@ -98,7 +106,7 @@ class ActionFlags extends AbstractEntity
     /**
      * @return bool
      */
-    public function isCanIncreaseSeats(): bool
+    public function getCanIncreaseSeats(): bool
     {
         return $this->canIncreaseSeats;
     }
@@ -109,11 +117,11 @@ class ActionFlags extends AbstractEntity
     public function jsonSerialize(): array
     {
         return [
-            'canBeCancelled'   => $this->isCanBeCancelled(),
-            'canBeReactivated' => $this->isCanBeReactivated(),
-            'canBeSuspended'   => $this->isCanBeSuspended(),
-            'canDecreaseSeats' => $this->isCanDecreaseSeats(),
-            'canIncreaseSeats' => $this->isCanIncreaseSeats(),
+            'canBeCancelled'   => $this->canBeCancelled,
+            'canBeReactivated' => $this->canBeReactivated,
+            'canBeSuspended'   => $this->canBeSuspended,
+            'canDecreaseSeats' => $this->canDecreaseSeats,
+            'canIncreaseSeats' => $this->canIncreaseSeats,
         ];
     }
 }
