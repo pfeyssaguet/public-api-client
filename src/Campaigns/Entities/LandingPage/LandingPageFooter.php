@@ -2,139 +2,72 @@
 
 namespace ArrowSphere\PublicApiClient\Campaigns\Entities\LandingPage;
 
-use ArrowSphere\PublicApiClient\AbstractEntity;
-use ArrowSphere\PublicApiClient\Exception\EntityValidationException;
+use ArrowSphere\Entities\AbstractEntity;
+use ArrowSphere\Entities\Property;
 
+/**
+ * Class LandingPageFooter
+ *
+ * @method string getTitle()
+ * @method string getBackgroundColor()
+ * @method string getButtonText()
+ * @method string getButtonUrl()
+ * @method string getTextColor()
+ * @method string getFeatures()
+ * @method setTitle(string $title)
+ * @method setBackgroundColor(string $backgroundColor)
+ * @method setButtonText(string $buttonText)
+ * @method setButtonUrl(string $buttonUrl)
+ * @method setTextColor(string $textColor)
+ * @method setFeatures(string $features)
+ */
 class LandingPageFooter extends AbstractEntity
 {
     public const COLUMN_BACKGROUNDCOLOR = 'backgroundColor';
+
     public const COLUMN_BUTTONTEXT = 'buttonText';
+
     public const COLUMN_BUTTONURL = 'buttonUrl';
+
     public const COLUMN_FEATURES = 'features';
+
     public const COLUMN_TEXTCOLOR = 'textColor';
+
     public const COLUMN_TITLE = 'title';
 
-    public const DEFAULT_VALUE_BACKGROUNDCOLOR = '';
-    public const DEFAULT_VALUE_BUTTONTEXT = '';
-    public const DEFAULT_VALUE_BUTTONURL = '';
-    public const DEFAULT_VALUE_TEXTCOLOR = '#FFF';
-    public const DEFAULT_VALUE_TITLE = '';
-
     /**
+     * @Property
      * @var string
      */
-    private $title;
+    protected $title = '';
 
     /**
+     * @Property
      * @var string
      */
-    private $backgroundColor;
+    protected $backgroundColor = '';
 
     /**
+     * @Property
      * @var string
      */
-    private $buttonText;
+    protected $buttonText = '';
 
     /**
+     * @Property
      * @var string
      */
-    private $buttonUrl;
+    protected $buttonUrl = '';
 
     /**
+     * @Property
      * @var string
      */
-    private $textColor;
+    protected $textColor = '#FFF';
 
     /**
+     * @Property(type="ArrowSphere\PublicApiClient\Campaigns\Entities\LandingPage\LandingPageFeature", isArray=true)
      * @var LandingPageFeature[]
      */
-    private $features;
-
-    /**
-     * Statement constructor.
-     *
-     * @param array $data
-     *
-     * @throws EntityValidationException
-     * @throws \ReflectionException
-     */
-    public function __construct(array $data)
-    {
-        parent::__construct($data);
-
-        $this->backgroundColor = $data[self::COLUMN_BACKGROUNDCOLOR] ?? self::DEFAULT_VALUE_BACKGROUNDCOLOR;
-        $this->buttonText = $data[self::COLUMN_BUTTONTEXT] ?? self::DEFAULT_VALUE_BUTTONTEXT;
-        $this->buttonUrl = $data[self::COLUMN_BUTTONURL] ?? self::DEFAULT_VALUE_BUTTONURL;
-        $this->features = array_map(
-            static function (array $features) {
-                return new LandingPageFeature($features);
-            },
-            $data[self::COLUMN_FEATURES] ?? []
-        );
-        $this->textColor = $data[self::COLUMN_TEXTCOLOR] ?? self::DEFAULT_VALUE_TEXTCOLOR;
-        $this->title = $data[self::COLUMN_TITLE] ?? self::DEFAULT_VALUE_TITLE;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBackgroundColor(): string
-    {
-        return $this->backgroundColor;
-    }
-
-    /**
-     * @return string
-     */
-    public function getButtonText(): string
-    {
-        return $this->buttonText;
-    }
-
-    /**
-     * @return string
-     */
-    public function getButtonUrl(): string
-    {
-        return $this->buttonUrl;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTextColor(): string
-    {
-        return $this->textColor;
-    }
-
-    /**
-     * @return LandingPageFeature[]
-     */
-    public function getFeatures(): array
-    {
-        return $this->features;
-    }
-
-    /**
-     * @return array
-     */
-    public function jsonSerialize(): array
-    {
-        return [
-            self::COLUMN_BACKGROUNDCOLOR => $this->getBackgroundColor(),
-            self::COLUMN_BUTTONTEXT      => $this->getButtonText(),
-            self::COLUMN_BUTTONURL       => $this->getButtonUrl(),
-            self::COLUMN_FEATURES        => $this->getFeatures(),
-            self::COLUMN_TEXTCOLOR       => $this->getTextColor(),
-            self::COLUMN_TITLE           => $this->getTitle(),
-        ];
-    }
+    protected $features;
 }

@@ -27,6 +27,7 @@
     "php": ">=7.2.0",
     "ext-curl": "*",
     "ext-json": "*",
+    "arrowsphere/entities": "dev-handle-non-existing-fields",
     "guzzlehttp/guzzle": "^6.0 || ^7.0"
   },
   "require-dev": {
@@ -47,5 +48,15 @@
     "sort-packages": true
   },
   "minimum-stability": "dev",
-  "prefer-stable": true
+  "prefer-stable": true,
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/pfeyssaguet/entities.git"
+    },
+    {
+      "type": "composer",
+      "url": "https://packagist.org"
+    }
+  ]
 }

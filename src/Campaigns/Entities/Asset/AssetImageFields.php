@@ -2,10 +2,28 @@
 
 namespace ArrowSphere\PublicApiClient\Campaigns\Entities\Asset;
 
-use ArrowSphere\PublicApiClient\AbstractEntity;
+use ArrowSphere\Entities\AbstractEntity;
+use ArrowSphere\Entities\Property;
 
 /**
  * Class AssetImageFields
+ *
+ * @method string getKey()
+ * @method string getBucket()
+ * @method string getAmzAlgorithm()
+ * @method string getAmzCredential()
+ * @method string getAmzDate()
+ * @method string getAmzSecurityToken()
+ * @method string getPolicy()
+ * @method string getAmzSignature()
+ * @method self setKey(string $key)
+ * @method self setBucket(string $bucket)
+ * @method self setAmzAlgorithm(string $amzAlgorithm)
+ * @method self setAmzCredential(string $amzCredential)
+ * @method self setAmzDate(string $amzDate)
+ * @method self setAmzSecurityToken(string $amzSecurityToken)
+ * @method self setPolicy(string $policy)
+ * @method self setAmzSignature(string $amzSignature)
  */
 class AssetImageFields extends AbstractEntity
 {
@@ -26,133 +44,50 @@ class AssetImageFields extends AbstractEntity
     public const COLUMN_X_AMZ_SIGNATURE = "X-Amz-Signature";
 
     /**
+     * @Property(name="Key", required=true)
      * @var string
      */
-    private $key;
+    protected $key;
 
     /**
+     * @Property(required=true)
      * @var string
      */
-    private $bucket;
+    protected $bucket;
 
     /**
+     * @Property(name="X-Amz-Algorithm", required=true)
      * @var string
      */
-    private $amzAlgorithm;
+    protected $amzAlgorithm;
 
     /**
+     * @Property(name="X-Amz-Credential", required=true)
      * @var string
      */
-    private $amzCredential;
+    protected $amzCredential;
 
     /**
+     * @Property(name="X-Amz-Date", required=true)
      * @var string
      */
-    private $amzDate;
+    protected $amzDate;
 
     /**
+     * @Property(name="X-Amz-Security-Token", required=true)
      * @var string
      */
-    private $amzSecurityToken;
+    protected $amzSecurityToken;
 
     /**
+     * @Property(name="Policy", required=true)
      * @var string
      */
-    private $policy;
+    protected $policy;
 
     /**
+     * @Property(name="X-Amz-Signature", required=true)
      * @var string
      */
-    private $amzSignature;
-
-    public function __construct(array $data)
-    {
-        parent::__construct($data);
-        $this->key = $data[self::COLUMN_KEY];
-        $this->bucket = $data[self::COLUMN_BUCKET];
-        $this->amzAlgorithm = $data[self::COLUMN_X_AMZ_ALGORITHM];
-        $this->amzCredential = $data[self::COLUMN_X_AMZ_CREDENTIAL];
-        $this->amzDate = $data[self::COLUMN_X_AMZ_DATE];
-        $this->amzSecurityToken = $data[self::COLUMN_X_AMZ_SECURITY_TOKEN];
-        $this->policy = $data[self::COLUMN_POLICY];
-        $this->amzSignature = $data[self::COLUMN_X_AMZ_SIGNATURE];
-    }
-
-    /**
-     * @return string
-     */
-    public function getKey(): string
-    {
-        return $this->key;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBucket(): string
-    {
-        return $this->bucket;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAmzAlgorithm(): string
-    {
-        return $this->amzAlgorithm;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAmzCredential(): string
-    {
-        return $this->amzCredential;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAmzDate(): string
-    {
-        return $this->amzDate;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAmzSecurityToken(): string
-    {
-        return $this->amzSecurityToken;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPolicy(): string
-    {
-        return $this->policy;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAmzSignature(): string
-    {
-        return $this->amzSignature;
-    }
-
-    public function jsonSerialize()
-    {
-        return [
-            self::COLUMN_KEY                  => $this->key,
-            self::COLUMN_BUCKET               => $this->bucket,
-            self::COLUMN_X_AMZ_ALGORITHM      => $this->amzAlgorithm,
-            self::COLUMN_X_AMZ_CREDENTIAL     => $this->amzCredential,
-            self::COLUMN_X_AMZ_DATE           => $this->amzDate,
-            self::COLUMN_X_AMZ_SECURITY_TOKEN => $this->amzSecurityToken,
-            self::COLUMN_POLICY               => $this->policy,
-            self::COLUMN_X_AMZ_SIGNATURE      => $this->amzSignature,
-        ];
-    }
+    protected $amzSignature;
 }

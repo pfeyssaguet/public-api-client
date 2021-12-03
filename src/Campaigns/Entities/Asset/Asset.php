@@ -2,10 +2,16 @@
 
 namespace ArrowSphere\PublicApiClient\Campaigns\Entities\Asset;
 
-use ArrowSphere\PublicApiClient\AbstractEntity;
+use ArrowSphere\Entities\AbstractEntity;
+use ArrowSphere\Entities\Property;
 
 /**
  * Class Asset
+ *
+ * @method string getUuid()
+ * @method string getUrl()
+ * @method self setUuid(string $uuid)
+ * @method self setUrl(string $url)
  */
 class Asset extends AbstractEntity
 {
@@ -14,43 +20,14 @@ class Asset extends AbstractEntity
     public const COLUMN_URL = 'url';
 
     /**
+     * @Property(required=true)
      * @var string
      */
-    private $uuid;
+    protected $uuid;
 
     /**
+     * @Property(required=true)
      * @var string
      */
-    private $url;
-
-    public function __construct(array $data)
-    {
-        parent::__construct($data);
-        $this->uuid = $data[self::COLUMN_UUID];
-        $this->url = $data[self::COLUMN_URL];
-    }
-
-    /**
-     * @return string
-     */
-    public function getUuid(): string
-    {
-        return $this->uuid;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUrl(): string
-    {
-        return $this->url;
-    }
-
-    public function jsonSerialize()
-    {
-        return [
-            self::COLUMN_UUID => $this->uuid,
-            self::COLUMN_URL  => $this->url,
-        ];
-    }
+    protected $url;
 }
