@@ -17,6 +17,7 @@ use ArrowSphere\PublicApiClient\Customers\CustomersClient;
 use ArrowSphere\PublicApiClient\General\CheckDomainClient;
 use ArrowSphere\PublicApiClient\General\WhoamiClient;
 use ArrowSphere\PublicApiClient\Licenses\LicensesClient;
+use ArrowSphere\PublicApiClient\Support\SupportClient;
 
 /**
  * Class PublicApiClient
@@ -171,6 +172,16 @@ class PublicApiClient extends AbstractClient
     public function getHealthCheckClient(): HealthCheckClient
     {
         return (new HealthCheckClient($this->client))
+            ->setUrl($this->url)
+            ->setApiKey($this->apiKey);
+    }
+
+    /**
+     * @return SupportClient
+     */
+    public function getSupportClient(): SupportClient
+    {
+        return (new SupportClient($this->client))
             ->setUrl($this->url)
             ->setApiKey($this->apiKey);
     }

@@ -18,7 +18,6 @@ $ composer require arrowsphere/public-api-client
 ```
 
 ## Basic usage
-
 ```php
 <?php
 
@@ -71,3 +70,6 @@ echo "Hello " . $whoami->getCompanyName();
 ### Campaigns clients
 
 - [Campaigns](doc/campaigns.md)
+
+### Support clients
+- [Support](doc/support.md)
