@@ -16,26 +16,26 @@ class LandingPageFooterTest extends AbstractEntityTest
     {
         return [
             'standard' => [
-                'fields'   => [
+                'fields' => [
                     'backgroundColor' => 'pink',
-                    'buttonText'      => 'cool',
-                    'buttonUrl'       => 'story',
-                    'features'        => [
+                    'buttonText' => 'cool',
+                    'buttonUrl' => 'story',
+                    'features' => [
                         [
-                            'title'       => 'feature title',
                             'description' => 'feature description',
-                            'icon'        => 'feature icon',
-                            'size'        => 42,
+                            'icon' => 'feature icon',
+                            'size' => 42,
+                            'title' => 'feature title',
                         ],
                         [
-                            'title'       => 'feature title 2',
                             'description' => 'feature description 2',
-                            'icon'        => 'feature icon 2',
-                            'size'        => 84,
+                            'icon' => 'feature icon 2',
+                            'size' => 84,
+                            'title' => 'feature title 2',
                         ],
                     ],
-                    'textColor'       => 'red',
-                    'title'           => 'bro',
+                    'textColor' => 'red',
+                    'title' => 'bro',
                 ],
                 'expected' => <<<JSON
 {
@@ -44,16 +44,16 @@ class LandingPageFooterTest extends AbstractEntityTest
     "buttonUrl": "story",
     "features": [
         {
-            "title": "feature title",
             "description": "feature description",
             "icon": "feature icon",
-            "size": 42
+            "size": 42,
+            "title": "feature title"
         },
         {
-            "title": "feature title 2",
             "description": "feature description 2",
             "icon": "feature icon 2",
-            "size": 84
+            "size": 84,
+            "title": "feature title 2"
         }
     ],
     "textColor": "red",
@@ -62,8 +62,8 @@ class LandingPageFooterTest extends AbstractEntityTest
 JSON
                 ,
             ],
-            'empty'    => [
-                'fields'   => [],
+            'empty' => [
+                'fields' => [],
                 'expected' => <<<JSON
 {
     "backgroundColor": "",

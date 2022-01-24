@@ -16,34 +16,26 @@ class LandingPageTest extends AbstractEntityTest
     {
         return [
             'standard' => [
-                'fields'   => [
-                    "header" => [
-                        "backgroundImageUuid" => "eee-eee-eeee-eee-ee",
-                        "vendorLogoUuid"      => "fff-fff-fffff-fff-ff",
+                'fields' => [
+                    'body' => [
+                        'backgroundImageUuid' => 'ggg-ggg-gggg-ggg-gg',
                     ],
-                    "body"   => [
-                        "backgroundImageUuid" => "ggg-ggg-gggg-ggg-gg",
+                    'footer' => [],
+                    'header' => [
+                        'backgroundImageUuid' => 'eee-eee-eeee-eee-ee',
+                        'vendorLogoUuid' => 'fff-fff-fffff-fff-ff',
                     ],
                 ],
                 'expected' => <<<JSON
 {
-    "url": null,
-    "header": {
-        "backgroundImageUuid": "eee-eee-eeee-eee-ee",
-        "vendorLogoUuid": "fff-fff-fffff-fff-ff",
-        "title": "",
-        "backgroundColor": null,
-        "baseline": "",
-        "textColor": null
-    },
     "body": {
         "backgroundImageUuid": "ggg-ggg-gggg-ggg-gg",
-        "type": "",
-        "title": "",
-        "description": "",
-        "videoUrl": null,
         "buttonText": null,
-        "contactEmail": null
+        "contactEmail": null,
+        "description": "",
+        "title": "",
+        "type": "",
+        "videoUrl": null
     },
     "footer": {
         "backgroundColor": "",
@@ -52,7 +44,16 @@ class LandingPageTest extends AbstractEntityTest
         "features": [],
         "textColor": "#FFF",
         "title": ""
-    }
+    },
+    "header": {
+        "backgroundColor": null,
+        "backgroundImageUuid": "eee-eee-eeee-eee-ee",
+        "baseline": "",
+        "textColor": null,
+        "title": "",
+        "vendorLogoUuid": "fff-fff-fffff-fff-ff"
+    },
+    "url": null
 }
 JSON
                 ,

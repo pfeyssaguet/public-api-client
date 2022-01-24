@@ -16,22 +16,8 @@ class CampaignTest extends AbstractEntityTest
     {
         return [
             'standard' => [
-                'fields'   => [
-                    "reference"   => "aaa-aaa-aaaa-aaa",
-                    "name"        => "My campaign",
-                    "category"    => "BANNER",
-                    "isActivated" => false,
-                    "createdAt"   => "2021-06-25T16:00:00Z",
-                    "rules"       => [
-                        "locations"     => [],
-                        "roles"         => [],
-                        "marketplaces"  => [],
-                        "subscriptions" => [],
-                        "resellers"     => [],
-                        "endCustomers"  => [],
-                    ],
-                    "weight"      => 1,
-                    "banners"     => [
+                'fields' => [
+                    "banners" => [
                         [
                             "backgroundImageUuid" => "bbbb-bbb-bbbb-bbb-bb",
                         ],
@@ -42,70 +28,76 @@ class CampaignTest extends AbstractEntityTest
                             "backgroundImageUuid" => "ddd-ddd-dddd-ddd-dd",
                         ],
                     ],
+                    "category" => "BANNER",
+                    "createdAt" => "2021-06-25T16:00:00+00:00",
+                    "isActivated" => false,
                     "landingPage" => [
-                        "header" => [
-                            "backgroundImageUuid" => "eee-eee-eeee-eee-ee",
-                            "vendorLogoUuid"      => "fff-fff-fffff-fff-ff",
-                        ],
-                        "body"   => [
+                        "body" => [
                             "backgroundImageUuid" => "ggg-ggg-gggg-ggg-gg",
                         ],
+                        'footer' => [],
+                        "header" => [
+                            "backgroundImageUuid" => "eee-eee-eeee-eee-ee",
+                            "vendorLogoUuid" => "fff-fff-fffff-fff-ff",
+                        ],
                     ],
+                    "name" => "My campaign",
+                    "reference" => "aaa-aaa-aaaa-aaa",
+                    "rules" => [
+                        "endCustomers" => [],
+                        "locations" => [],
+                        "marketplaces" => [],
+                        "resellers" => [],
+                        "roles" => [],
+                        "subscriptions" => [],
+                    ],
+                    "weight" => 1,
                 ],
                 'expected' => <<<JSON
 {
     "banners": [
         {
+            "backgroundColor": null,
             "backgroundImageUuid": "bbbb-bbb-bbbb-bbb-bb",
-            "backgroundColor": null,
-            "type": "BACKGROUND_COLOR",
             "buttonPlacement": "RIGHT",
             "buttonText": null,
             "text": null,
-            "textColor": null
+            "textColor": null,
+            "type": "BACKGROUND_COLOR"
         },
         {
+            "backgroundColor": null,
             "backgroundImageUuid": "ccc-ccc-cccc-ccc-cc",
-            "backgroundColor": null,
-            "type": "BACKGROUND_COLOR",
             "buttonPlacement": "RIGHT",
             "buttonText": null,
             "text": null,
-            "textColor": null
+            "textColor": null,
+            "type": "BACKGROUND_COLOR"
         },
         {
-            "backgroundImageUuid": "ddd-ddd-dddd-ddd-dd",
             "backgroundColor": null,
-            "type": "BACKGROUND_COLOR",
+            "backgroundImageUuid": "ddd-ddd-dddd-ddd-dd",
             "buttonPlacement": "RIGHT",
             "buttonText": null,
             "text": null,
-            "textColor": null
+            "textColor": null,
+            "type": "BACKGROUND_COLOR"
         }
     ],
     "category": "BANNER",
-    "isActivated": false,
-    "createdAt": "2021-06-25T16:00:00Z",
+    "createdAt": "2021-06-25T16:00:00+00:00",
     "deletedAt": null,
     "endDate": null,
+    "isActivated": false,
     "landingPage": {
-        "url": null,
-        "header": {
-            "backgroundImageUuid": "eee-eee-eeee-eee-ee",
-            "vendorLogoUuid": "fff-fff-fffff-fff-ff",
-            "title": "",
-            "backgroundColor": null,
-            "baseline": "",
-            "textColor": null
-        },
         "body": {
             "backgroundImageUuid": "ggg-ggg-gggg-ggg-gg",
-            "type": "",
-            "title": "",
-            "description": "",
-            "videoUrl": null,
             "buttonText": null,
-            "contactEmail": null
+            "contactEmail": null,
+            "description": "",
+            "title": "",
+            "type": "",
+            "videoUrl": null
         },
         "footer": {
             "backgroundColor": "",
@@ -114,7 +106,16 @@ class CampaignTest extends AbstractEntityTest
             "features": [],
             "textColor": "#FFF",
             "title": ""
-        }
+        },
+        "header": {
+            "backgroundColor": null,
+            "backgroundImageUuid": "eee-eee-eeee-eee-ee",
+            "baseline": "",
+            "textColor": null,
+            "title": "",
+            "vendorLogoUuid": "fff-fff-fffff-fff-ff"
+        },
+        "url": null
     },
     "name": "My campaign",
     "reference": "aaa-aaa-aaaa-aaa",
@@ -131,6 +132,7 @@ class CampaignTest extends AbstractEntityTest
     "weight": 1
 }
 JSON
+                ,
             ],
         ];
     }

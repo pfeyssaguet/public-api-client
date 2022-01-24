@@ -15,42 +15,42 @@ class BannerTest extends AbstractEntityTest
     public function providerSerialization(): array
     {
         return [
-            'standard'   => [
-                'fields'   => [
+            'standard' => [
+                'fields' => [
                     "backgroundImageUuid" => "bbbb-bbb-bbbb-bbb-bb",
                 ],
                 'expected' => <<<JSON
 {
-    "backgroundImageUuid": "bbbb-bbb-bbbb-bbb-bb",
     "backgroundColor": null,
-    "type": "BACKGROUND_COLOR",
+    "backgroundImageUuid": "bbbb-bbb-bbbb-bbb-bb",
     "buttonPlacement": "RIGHT",
     "buttonText": null,
     "text": null,
-    "textColor": null
+    "textColor": null,
+    "type": "BACKGROUND_COLOR"
 }
 JSON
                 ,
             ],
             'all fields' => [
-                'fields'   => [
+                'fields' => [
+                    "backgroundColor" => 'white',
                     "backgroundImageUuid" => "1111-222-3333-444-55",
-                    "backgroundColor"     => 'white',
-                    'type'                => 'my type',
-                    'buttonPlacement'     => 'cool',
-                    'buttonText'          => 'story',
-                    'text'                => 'bro',
-                    'textColor'           => 'pink',
+                    'buttonPlacement' => 'cool',
+                    'buttonText' => 'story',
+                    'text' => 'bro',
+                    'textColor' => 'pink',
+                    'type' => 'my type',
                 ],
                 'expected' => <<<JSON
 {
-    "backgroundImageUuid": "1111-222-3333-444-55",
     "backgroundColor": "white",
-    "type": "my type",
+    "backgroundImageUuid": "1111-222-3333-444-55",
     "buttonPlacement": "cool",
     "buttonText": "story",
     "text": "bro",
-    "textColor": "pink"
+    "textColor": "pink",
+    "type": "my type"
 }
 JSON
                 ,

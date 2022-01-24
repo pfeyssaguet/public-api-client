@@ -8,14 +8,14 @@ use ArrowSphere\Entities\Property;
 /**
  * Class LandingPageFeature
  *
- * @method string getTitle()
  * @method string getDescription()
  * @method string getIcon()
  * @method int getSize()
- * @method self setTitle(string $title)
+ * @method string getTitle()
  * @method self setDescription(string $description)
  * @method self setIcon(string $icon)
  * @method self setSize(int $size)
+ * @method self setTitle(string $title)
  */
 class LandingPageFeature extends AbstractEntity
 {
@@ -26,12 +26,6 @@ class LandingPageFeature extends AbstractEntity
     public const COLUMN_SIZE = 'size';
 
     public const COLUMN_TITLE = 'title';
-
-    /**
-     * @Property
-     * @var string
-     */
-    protected $title = '';
 
     /**
      * @Property
@@ -50,4 +44,10 @@ class LandingPageFeature extends AbstractEntity
      * @var int
      */
     protected $size = 4;
+
+    /**
+     * @Property
+     * @var string
+     */
+    protected $title = '';
 }

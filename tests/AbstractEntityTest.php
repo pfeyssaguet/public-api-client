@@ -36,8 +36,8 @@ abstract class AbstractEntityTest extends TestCase
             self::fail('The const CLASS_NAME must be redefined in ' . get_class($this));
         }
 
-        $activeSeats = new $className($fields);
+        $entity = new $className($fields);
 
-        self::assertSame($expected, json_encode($activeSeats, JSON_PRETTY_PRINT));
+        self::assertSame($expected, json_encode($entity, JSON_PRETTY_PRINT));
     }
 }

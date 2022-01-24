@@ -13,41 +13,41 @@ class LandingPageBodyTest extends AbstractEntityTest
     {
         return [
             'standard' => [
-                'fields'   => [
+                'fields' => [
                     'backgroundImageUuid' => 'aaa-bbb-ccc',
-                    'type'                => 'cool',
-                    'title'               => 'story',
-                    'description'         => 'bro',
-                    'videoUrl'            => 'my video url',
-                    'buttonText'          => null,
-                    'contactEmail'        => null,
+                    'buttonText' => null,
+                    'contactEmail' => null,
+                    'description' => 'bro',
+                    'title' => 'story',
+                    'type' => 'cool',
+                    'videoUrl' => 'my video url',
                 ],
                 'expected' => <<<JSON
 {
     "backgroundImageUuid": "aaa-bbb-ccc",
-    "type": "cool",
-    "title": "story",
-    "description": "bro",
-    "videoUrl": "my video url",
     "buttonText": null,
-    "contactEmail": null
+    "contactEmail": null,
+    "description": "bro",
+    "title": "story",
+    "type": "cool",
+    "videoUrl": "my video url"
 }
 JSON
                 ,
             ],
-            'empty'    => [
-                'fields'   => [
+            'empty' => [
+                'fields' => [
 
                 ],
                 'expected' => <<<JSON
 {
     "backgroundImageUuid": "",
-    "type": "",
-    "title": "",
-    "description": "",
-    "videoUrl": null,
     "buttonText": null,
-    "contactEmail": null
+    "contactEmail": null,
+    "description": "",
+    "title": "",
+    "type": "",
+    "videoUrl": null
 }
 JSON
                 ,
