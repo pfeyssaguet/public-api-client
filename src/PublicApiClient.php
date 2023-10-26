@@ -21,6 +21,7 @@ use ArrowSphere\PublicApiClient\General\WhoamiClient;
 use ArrowSphere\PublicApiClient\Licenses\LicensesClient;
 use ArrowSphere\PublicApiClient\Notification\NotificationClient;
 use ArrowSphere\PublicApiClient\Partners\PartnersClient;
+use ArrowSphere\PublicApiClient\Subscriptions\SubscriptionsClient;
 use ArrowSphere\PublicApiClient\Support\SupportClient;
 
 /**
@@ -227,6 +228,23 @@ class PublicApiClient extends AbstractClient
     public function getPartnersClient(): PartnersClient
     {
         $client = (new PartnersClient($this->client))
+            ->setUrl($this->url);
+
+        if (isset($this->idToken)) {
+            $client->setIdToken($this->idToken);
+        } elseif (isset($this->apiKey)) {
+            $client->setApiKey($this->apiKey);
+        }
+
+        return $client;
+    }
+
+    /**
+     * @return SubscriptionsClient
+     */
+    public function getSubscriptionsClient(): SubscriptionsClient
+    {
+        $client = (new SubscriptionsClient($this->client))
             ->setUrl($this->url);
 
         if (isset($this->idToken)) {
