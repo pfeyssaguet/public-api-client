@@ -20,6 +20,7 @@ use ArrowSphere\PublicApiClient\General\CheckDomainClient;
 use ArrowSphere\PublicApiClient\General\WhoamiClient;
 use ArrowSphere\PublicApiClient\Licenses\LicensesClient;
 use ArrowSphere\PublicApiClient\Notification\NotificationClient;
+use ArrowSphere\PublicApiClient\Orders\OrdersClient;
 use ArrowSphere\PublicApiClient\Partners\PartnersClient;
 use ArrowSphere\PublicApiClient\Support\SupportClient;
 
@@ -236,5 +237,15 @@ class PublicApiClient extends AbstractClient
         }
 
         return $client;
+    }
+
+    /**
+     * @return OrdersClient
+     */
+    public function getOrdersClient(): OrdersClient
+    {
+        return (new OrdersClient($this->client))
+            ->setUrl($this->url)
+            ->setApiKey($this->apiKey);
     }
 }
