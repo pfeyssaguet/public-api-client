@@ -20,11 +20,6 @@ class QuotesClientTest extends AbstractClientTest
     protected const MOCKED_CLIENT_CLASS = QuotesClient::class;
 
     /**
-     * @var QuotesClient
-     */
-    protected $client;
-
-    /**
      * @return CreateQuote
      */
     public function createPayload(): CreateQuote

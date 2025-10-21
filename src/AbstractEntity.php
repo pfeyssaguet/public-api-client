@@ -9,6 +9,8 @@ use Illuminate\Validation\Factory;
 
 /**
  * Class AbstractEntity
+ *
+ * @deprecated Please use ArrowSphere\PublicApiClient\Entities\AbstractEntity to make use of the property attributes
  */
 abstract class AbstractEntity implements \JsonSerializable
 {
