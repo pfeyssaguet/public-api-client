@@ -24,28 +24,28 @@ class LicensesClientTest extends AbstractClientTest
     protected const MOCKED_CLIENT_CLASS = LicensesClient::class;
 
     private $postData = [
-        LicensesClient::DATA_KEYWORD   => 'office 365',
-        LicensesClient::DATA_KEYWORDS  => [
+        LicensesClient::DATA_KEYWORD => 'office 365',
+        LicensesClient::DATA_KEYWORDS => [
             LicenseFindFieldEnum::LICENSE_CUSTOMER_NAME => [
-                LicensesClient::KEYWORDS_VALUES   => [
+                LicensesClient::KEYWORDS_VALUES => [
                     'My customer',
                 ],
                 LicensesClient::KEYWORDS_OPERATOR => LicensesClient::OPERATOR_OR,
             ],
         ],
-        LicensesClient::DATA_COMPARE   => [
+        LicensesClient::DATA_COMPARE => [
             LicenseFindFieldEnum::LICENSE_PRICE_BUY_PRICE => [
                 LicensesClient::COMPARE_FIELD => LicenseFindFieldEnum::OFFER_PRICE_BAND_PRICES_BUY,
                 LicensesClient::COMPARE_OPERATOR => LicensesClient::OPERATOR_GT,
             ],
         ],
-        LicensesClient::DATA_FILTERS   => [
+        LicensesClient::DATA_FILTERS => [
             LicenseFindFieldEnum::LICENSE_VENDOR_CODE => [
                 'Microsoft',
                 'IBM',
             ],
         ],
-        LicensesClient::DATA_SORT      => [
+        LicensesClient::DATA_SORT => [
             LicenseFindFieldEnum::LICENSE_STATUS_CODE => LicensesClient::SORT_DESCENDING,
         ],
         LicensesClient::DATA_HIGHLIGHT => true,
@@ -101,11 +101,11 @@ JSON;
                 'https://www.test.com/licenses/v2/find?abc=def&ghi=0&page=2&per_page=15',
                 [
                     'headers' => [
-                        'apiKey'       => '123456',
+                        'apiKey' => '123456',
                         'Content-Type' => 'application/json',
-                        'User-Agent'   => $this->userAgentHeader,
+                        'User-Agent' => $this->userAgentHeader,
                     ],
-                    'body'    => json_encode($this->postData),
+                    'body' => json_encode($this->postData),
                 ]
             )
             ->willReturn(new Response(200, [], 'OK USA'));
@@ -128,18 +128,18 @@ JSON;
         $postData = array_merge(
             $this->postData,
             [
-                LicensesClient::DATA_KEYWORDS  => [
+                LicensesClient::DATA_KEYWORDS => [
                     LicenseFindFieldEnum::LICENSE_CUSTOMER_NAME => [
-                        LicensesClient::KEYWORDS_VALUES   => [
-                            'first'  => 'My customer',
+                        LicensesClient::KEYWORDS_VALUES => [
+                            'first' => 'My customer',
                             'second' => 'Other',
                         ],
                         LicensesClient::KEYWORDS_OPERATOR => LicensesClient::OPERATOR_OR,
                     ],
                 ],
-                LicensesClient::DATA_FILTERS   => [
+                LicensesClient::DATA_FILTERS => [
                     LicenseFindFieldEnum::LICENSE_VENDOR_CODE => [
-                        'first'  => 'Microsoft',
+                        'first' => 'Microsoft',
                         'second' => 'IBM',
                     ],
                 ],
@@ -188,11 +188,11 @@ JSON;
                 'https://www.test.com/licenses/v2/find',
                 [
                     'headers' => [
-                        'apiKey'       => '123456',
+                        'apiKey' => '123456',
                         'Content-Type' => 'application/json',
-                        'User-Agent'   => $this->userAgentHeader,
+                        'User-Agent' => $this->userAgentHeader,
                     ],
-                    'body'    => $expected,
+                    'body' => $expected,
                 ]
             )
             ->willReturn(new Response(200, [], 'OK USA'));
@@ -211,54 +211,54 @@ JSON;
             for ($i = 1; $i <= $nb; $i++) {
                 $results[] = [
                     'license' => [
-                        'id'                     => 123456,
-                        'subscription_id'        => '12345678-AAAA-CCCC-FFFF-987654321012',
-                        'parent_line_id'         => null,
-                        'parent_order_ref'       => null,
-                        'vendor_name'            => 'Microsoft',
-                        'vendor_code'            => 'Microsoft',
-                        'subsidiary_name'        => 'Arrow ECS Denmark',
-                        'partner_ref'            => 'XSP' . str_pad($i + $offset, 8, '0', STR_PAD_LEFT),
-                        'status_code'            => 86,
-                        'status_label'           => 'activation_ok',
-                        'service_ref'            => 'MS-0B-O365-ENTERPRIS',
-                        'sku'                    => 'ABCDABCD-1234-5678-9876-ABCDEFABCDEF',
-                        'uom'                    => 'LICENSE',
-                        'price'                  => [
+                        'id' => 123456,
+                        'subscription_id' => '12345678-AAAA-CCCC-FFFF-987654321012',
+                        'parent_line_id' => null,
+                        'parent_order_ref' => null,
+                        'vendor_name' => 'Microsoft',
+                        'vendor_code' => 'Microsoft',
+                        'subsidiary_name' => 'Arrow ECS Denmark',
+                        'partner_ref' => 'XSP' . str_pad($i + $offset, 8, '0', STR_PAD_LEFT),
+                        'status_code' => 86,
+                        'status_label' => 'activation_ok',
+                        'service_ref' => 'MS-0B-O365-ENTERPRIS',
+                        'sku' => 'ABCDABCD-1234-5678-9876-ABCDEFABCDEF',
+                        'uom' => 'LICENSE',
+                        'price' => [
                             'priceBandArrowsphereSku' => 'IBM_5737A82_DK_MS_EMM_PRE_PROD_1M_USD_1_999',
-                            'buy_price'               => 10,
-                            'sell_price'              => 15,
-                            'list_price'              => 15,
-                            'currency'                => 'USD',
+                            'buy_price' => 10,
+                            'sell_price' => 15,
+                            'list_price' => 15,
+                            'currency' => 'USD',
                         ],
-                        'cloud_type'             => 'SaaS',
-                        'base_seat'              => 6,
-                        'seat'                   => 6,
-                        'trial'                  => false,
-                        'auto_renew'             => true,
-                        'offer'                  => 'Office 365 E3',
-                        'category'               => 'BaseProduct',
-                        'type'                   => 'recurring',
-                        'start_date'             => '2020-11-18T17:48:43.000Z',
-                        'end_date'               => '2021-11-18T17:48:43.000Z',
-                        'accept_eula'            => false,
-                        'customer_ref'           => 'XSP123456789',
-                        'customer_name'          => 'My customer',
-                        'reseller_ref'           => 'XSP12345',
-                        'reseller_name'          => 'My reseller',
-                        'marketplace'            => 'US',
-                        'active_seats'           => [
-                            'number'     => null,
+                        'cloud_type' => 'SaaS',
+                        'base_seat' => 6,
+                        'seat' => 6,
+                        'trial' => false,
+                        'auto_renew' => true,
+                        'offer' => 'Office 365 E3',
+                        'category' => 'BaseProduct',
+                        'type' => 'recurring',
+                        'start_date' => '2020-11-18T17:48:43.000Z',
+                        'end_date' => '2021-11-18T17:48:43.000Z',
+                        'accept_eula' => false,
+                        'customer_ref' => 'XSP123456789',
+                        'customer_name' => 'My customer',
+                        'reseller_ref' => 'XSP12345',
+                        'reseller_name' => 'My reseller',
+                        'marketplace' => 'US',
+                        'active_seats' => [
+                            'number' => null,
                             'lastUpdate' => null,
                         ],
-                        'friendly_name'          => 'XSP12345|MS-0B-O365-ENTERPRIS|XSP555555|XSP987654321',
+                        'friendly_name' => 'XSP12345|MS-0B-O365-ENTERPRIS|XSP555555|XSP987654321',
                         'vendor_subscription_id' => 'AABBCCDD-1111-2222-3333-ABCDEFABCDEF',
-                        'message'                => '',
-                        'periodicity'            => 720,
-                        'term'                   => 8640,
-                        'isEnabled'              => true,
-                        'lastUpdate'             => '2020-12-08T15:42:30.069Z',
-                        'security'               => [
+                        'message' => '',
+                        'periodicity' => 720,
+                        'term' => 8640,
+                        'isEnabled' => true,
+                        'lastUpdate' => '2020-12-08T15:42:30.069Z',
+                        'security' => [
                             'activeFraudEvents' => 30,
                         ],
                     ],
@@ -269,28 +269,28 @@ JSON;
         };
 
         return [
-            'One page'    => [
+            'One page' => [
                 'totalPage' => 1,
-                'perPage'   => 5,
-                'total'     => 3,
-                'pages'     => [
+                'perPage' => 5,
+                'total' => 3,
+                'pages' => [
                     $genDummyLicenses(3),
                 ],
             ],
-            'Two pages'   => [
+            'Two pages' => [
                 'totalPage' => 2,
-                'perPage'   => 5,
-                'total'     => 8,
-                'pages'     => [
+                'perPage' => 5,
+                'total' => 8,
+                'pages' => [
                     $genDummyLicenses(5),
                     $genDummyLicenses(3, 5),
                 ],
             ],
             'Three pages' => [
                 'totalPage' => 3,
-                'perPage'   => 5,
-                'total'     => 12,
-                'pages'     => [
+                'perPage' => 5,
+                'total' => 12,
+                'pages' => [
                     $genDummyLicenses(5),
                     $genDummyLicenses(5, 5),
                     $genDummyLicenses(2, 10),
@@ -321,12 +321,12 @@ JSON;
 
         for ($i = 1; $i <= $totalPage; $i++) {
             $responses[] = new Response(200, [], json_encode([
-                'results'    => $pages[$i - 1],
-                'filters'    => [],
+                'results' => $pages[$i - 1],
+                'filters' => [],
                 'pagination' => [
                     'currentPage' => $i,
-                    'totalPage'   => $totalPage,
-                    'total'       => $total,
+                    'totalPage' => $totalPage,
+                    'total' => $total,
                 ],
             ]));
             if ($i === 1) {
@@ -381,11 +381,11 @@ JSON;
                 'https://www.test.com/licenses/v2/find?abc=def&ghi=0&page=2&per_page=15',
                 [
                     'headers' => [
-                        'apiKey'       => '123456',
+                        'apiKey' => '123456',
                         'Content-Type' => 'application/json',
-                        'User-Agent'   => $this->userAgentHeader,
+                        'User-Agent' => $this->userAgentHeader,
                     ],
-                    'body'    => json_encode($this->postData),
+                    'body' => json_encode($this->postData),
                 ]
             )
             ->willReturn(new Response(200, [], '{'));
@@ -624,11 +624,11 @@ JSON;
                 'https://www.test.com/licenses/v2/find?abc=def&ghi=0&per_page=15',
                 [
                     'headers' => [
-                        'apiKey'       => '123456',
+                        'apiKey' => '123456',
                         'Content-Type' => 'application/json',
-                        'User-Agent'   => $this->userAgentHeader,
+                        'User-Agent' => $this->userAgentHeader,
                     ],
-                    'body'    => json_encode($this->postData),
+                    'body' => json_encode($this->postData),
                 ]
             )
             ->willReturn(new Response(200, [], $response));
@@ -794,11 +794,11 @@ JSON;
                 'https://www.test.com/licenses/v2/find?abc=def&ghi=0&per_page=15',
                 [
                     'headers' => [
-                        'apiKey'       => '123456',
+                        'apiKey' => '123456',
                         'Content-Type' => 'application/json',
-                        'User-Agent'   => $this->userAgentHeader,
+                        'User-Agent' => $this->userAgentHeader,
                     ],
-                    'body'    => json_encode($this->postData),
+                    'body' => json_encode($this->postData),
                 ]
             )
             ->willReturn(new Response(200, [], $response));
@@ -982,23 +982,23 @@ JSON;
     {
         $response = json_encode([
             "status" => 200,
-            "data"=>
+            "data" =>
                 [
-                    "currency"=> "EUR",
-                    "updatedAt"=> "2022-10-26",
-                    "licenseReference"=> "XSP264509",
-                    "predictions"=> [
+                    "currency" => "EUR",
+                    "updatedAt" => "2022-10-26",
+                    "licenseReference" => "XSP264509",
+                    "predictions" => [
                         [
-                            "date"=> "2022-10-26",
-                            "amount"=> 521.0391398926142,
+                            "date" => "2022-10-26",
+                            "amount" => 521.0391398926142,
                         ],
                         [
                             "date" => "2022-10-27",
-                            "amount"=> 552.5630766601322,
+                            "amount" => 552.5630766601322,
                         ],
                         [
-                            "date"=> "2022-10-28",
-                            "amount"=> 544.5792517089964,
+                            "date" => "2022-10-28",
+                            "amount" => 544.5792517089964,
                         ],
                     ],
                 ]]);
@@ -1035,7 +1035,7 @@ JSON;
     {
         $postData = [
             Config::COLUMN_SCOPE => 'role',
-            Config::COLUMN_NAME  => 'purchaseReservations',
+            Config::COLUMN_NAME => 'purchaseReservations',
             Config::COLUMN_STATE => 'enabled',
         ];
 
@@ -1049,11 +1049,11 @@ JSON;
                 'https://www.test.com/licenses/XSP1234/configs',
                 [
                     'headers' => [
-                        'apiKey'       => '123456',
+                        'apiKey' => '123456',
                         'Content-Type' => 'application/json',
-                        'User-Agent'   => $this->userAgentHeader,
+                        'User-Agent' => $this->userAgentHeader,
                     ],
-                    'body'    => json_encode($postData),
+                    'body' => json_encode($postData),
                 ]
             )
             ->willReturn(new Response(200, [], 'OK USA'));
@@ -1071,7 +1071,7 @@ JSON;
     {
         $postData = [
             Config::COLUMN_SCOPE => 'role',
-            Config::COLUMN_NAME  => 'purchaseReservations',
+            Config::COLUMN_NAME => 'purchaseReservations',
             Config::COLUMN_STATE => 'enabled',
         ];
 
@@ -1100,7 +1100,7 @@ JSON;
                         'Content-Type' => 'application/json',
                         'User-Agent' => $this->userAgentHeader,
                     ],
-                    'body'    => json_encode($postData),
+                    'body' => json_encode($postData),
                 ]
             )
             ->willReturn(new Response(200, [], $response));
@@ -1148,5 +1148,79 @@ JSON;
         self::assertSame('arrow', $payerAccount->getType());
         self::assertSame('Payer Account 1', $payerAccount->getFriendlyName());
         self::assertSame('XSP100', $payerAccount->getLicenseRef());
+    }
+
+    public static function providerSimpleEndpoints(): array
+    {
+        $defaultPostData = [
+            'myPostData' => [
+                'mySubField' => 'whatever',
+                'numeric' => 12,
+            ],
+            'boolean' => true,
+        ];
+
+        return [
+            'reactivate' => [
+                'method' => [
+                    'name' => 'reactivate',
+                ],
+                'httpMethod' => 'put',
+                'uri' => '/licenses/XSP1234/reactivate',
+                'postData' => $defaultPostData,
+            ],
+            'suspend' => [
+                'method' => [
+                    'name' => 'suspend',
+                ],
+                'httpMethod' => 'put',
+                'uri' => '/licenses/XSP1234/suspend',
+                'postData' => $defaultPostData,
+            ],
+            'cancel' => [
+                'method' => [
+                    'name' => 'cancel',
+                ],
+                'httpMethod' => 'put',
+                'uri' => '/licenses/XSP1234/cancel',
+                'postData' => $defaultPostData,
+            ],
+            'updateFriendlyName' => [
+                'method' => [
+                    'name' => 'updateFriendlyName',
+                    'args' => ['my super friendly name'],
+                ],
+                'httpMethod' => 'put',
+                'uri' => '/licenses/XSP1234/friendlyName',
+                'postData' => $defaultPostData,
+                'expectedBody' => array_merge($defaultPostData, ['friendlyName' => 'my super friendly name']),
+            ],
+            'updateSeats' => [
+                'method' => [
+                    'name' => 'updateSeats',
+                    'args' => [12],
+                ],
+                'httpMethod' => 'put',
+                'uri' => '/licenses/XSP1234/seats',
+                'postData' => $defaultPostData,
+                'expectedBody' => array_merge($defaultPostData, ['seats' => 12]),
+            ],
+            'cancelAutoRenew' => [
+                'method' => [
+                    'name' => 'cancelAutoRenew',
+                ],
+                'httpMethod' => 'put',
+                'uri' => '/licenses/XSP1234/autorenew/cancel',
+                'postData' => $defaultPostData,
+            ],
+            'reactivateAutoRenew' => [
+                'method' => [
+                    'name' => 'reactivateAutoRenew',
+                ],
+                'httpMethod' => 'put',
+                'uri' => '/licenses/XSP1234/autorenew/reactivate',
+                'postData' => $defaultPostData,
+            ],
+        ];
     }
 }

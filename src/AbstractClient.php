@@ -426,7 +426,7 @@ abstract class AbstractClient
     /**
      * Sends a PUT request and returns the response
      *
-     * @param string $payload
+     * @param string|array $payload
      * @param array $parameters
      * @param array $headers
      *
@@ -436,14 +436,14 @@ abstract class AbstractClient
      * @throws NotFoundException
      * @throws PublicApiClientException
      */
-    protected function put(string $payload = '', array $parameters = [], array $headers = []): StreamInterface
+    protected function put(string|array $payload = [], array $parameters = [], array $headers = []): StreamInterface
     {
         $response = $this->client->request(
             'put',
             $this->generateUrl($parameters),
             [
                 self::HEADERS => $this->prepareHeaders($headers),
-                self::BODY    => $payload,
+                self::BODY    => is_string($payload) ? $payload : json_encode($payload),
             ]
         );
 

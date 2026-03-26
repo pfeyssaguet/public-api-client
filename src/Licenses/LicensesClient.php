@@ -338,4 +338,59 @@ class LicensesClient extends AbstractLicensesClient
 
         return array_map(static fn ($item) => new AwsPayerAccount($item), $response['data']['payerAccounts'] ?? []);
     }
+
+    public function reactivate(string $reference, array $postData = [], array $parameters = []): void
+    {
+        $this->path = sprintf('/%s/reactivate', $reference);
+
+        $this->put($postData, $parameters);
+    }
+
+    public function suspend(string $reference, array $postData = [], array $parameters = []): void
+    {
+        $this->path = sprintf('/%s/suspend', $reference);
+
+        $this->put($postData, $parameters);
+    }
+
+    public function cancel(string $reference, array $postData = [], array $parameters = []): void
+    {
+        $this->path = sprintf('/%s/cancel', $reference);
+
+        $this->put($postData, $parameters);
+    }
+
+    public function updateFriendlyName(string $reference, string $friendlyName, array $postData = [], array $parameters = []): void
+    {
+        $this->path = sprintf('/%s/friendlyName', $reference);
+
+        $this->put(
+            array_merge($postData, ['friendlyName' => $friendlyName]),
+            $parameters,
+        );
+    }
+
+    public function updateSeats(string $reference, int $seats, array $postData = [], array $parameters = []): void
+    {
+        $this->path = sprintf('/%s/seats', $reference);
+
+        $this->put(
+            array_merge($postData, ['seats' => $seats]),
+            $parameters,
+        );
+    }
+
+    public function cancelAutoRenew(string $reference, array $postData = [], array $parameters = []): void
+    {
+        $this->path = sprintf('/%s/autorenew/cancel', $reference);
+
+        $this->put($postData, $parameters);
+    }
+
+    public function reactivateAutoRenew(string $reference, array $postData, array $parameters = []): void
+    {
+        $this->path = sprintf('/%s/autorenew/reactivate', $reference);
+
+        $this->put($postData, $parameters);
+    }
 }
